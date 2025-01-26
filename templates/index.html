@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wave Function Collapse Pattern</title>
+    <style>
+        /* Make sure the body takes up the whole screen */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(240, 240, 240); /* Optional background color */
+        }
+
+        /* Make the image take up the full screen */
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;  /* Ensures the image covers the whole screen without distortion */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img id="pattern" src="" alt="Pattern will appear here" width="256" height="256">
+    </div>
+
+    <script>
+        function generatePattern() {
+            fetch('/generate_pattern')
+                .then(response => response.json())
+                .then(data => {
+                    const imgElement = document.getElementById("pattern");
+                    imgElement.src = "data:image/png;base64," + data.image_data;
+                })
+                .catch(error => console.error('Error generating pattern:', error));
+        }
+        setInterval(generatePattern, 10);
+    </script>
+</body>
+</html>
